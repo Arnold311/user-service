@@ -9,6 +9,5 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
       - SPRING_CLOUD_CONFIG_ENABLED=true
-    depends_on:
-      - config-server
-      - postgres
+
+
