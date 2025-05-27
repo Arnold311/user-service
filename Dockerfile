@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/*.jar /user-service.jar.jar
+COPY target/*.jar /app/user-service.jar
 
 EXPOSE 8081
 
