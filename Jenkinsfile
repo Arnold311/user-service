@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-
-        DOCKER_IMAGE = "user-service:${env.BUILD_NUMBER}"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,7 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                powershell './mvnw clean package -DskipTests'
+                powershell './mvnw clean package'
             }
         }
 
@@ -33,28 +28,17 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-
-                    powershell "docker build -t ${env.DOCKER_IMAGE} -f Dockerfile ."
+                    def imageTag = "user-service:${env.BUILD_NUMBER}"
+                    powershell "docker build -t ${imageTag} ."
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    powershell "docker-compose down"
-                    powershell "docker-compose up -d --build --force-recreate"
-                }
+                powershell 'docker-compose down'
+                powershell 'docker-compose up -d --build'
             }
-        }
-    }
-
-    post {
-        failure {
-            echo 'Pipeline failed!'
-        }
-        success {
-            echo 'Pipeline succeeded!'
         }
     }
 }
