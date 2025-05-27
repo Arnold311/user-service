@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-
-           IMAGE_NAME = 'user-service'
-    }
-
     stages {
         stage('Checkout') {
             steps {
