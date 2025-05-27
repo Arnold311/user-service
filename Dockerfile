@@ -6,5 +6,5 @@ COPY target/*.jar /app/user-service.jar
 
 EXPOSE 8081
 
-ENTRYPOINT ["java","-jar", "user-service.jar"]
+ENTRYPOINT ["java","-jar","user-service.jar"]
 
