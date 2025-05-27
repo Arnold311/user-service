@@ -1,22 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "user-service:${env.BUILD_NUMBER}"
+    }
+
     stages {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
         stage('Build') {
             steps {
-                powershell './mvnw clean package'
+                powershell './mvnw clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                powershell './mvnw test'
+                powershell './mvnw test -Dspring.profiles.active=test'
             }
             post {
                 always {
@@ -28,16 +30,17 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    def imageTag = "user-service:${env.BUILD_NUMBER}"
-                    powershell "docker build -t ${imageTag} ."
+                    powershell "docker build -t ${env.DOCKER_IMAGE} ."
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                powershell 'docker-compose down'
-                powershell 'docker-compose up -d --build'
+                script {
+                    powershell "docker-compose down"
+                    powershell "docker-compose up -d --build"
+                }
             }
         }
     }
