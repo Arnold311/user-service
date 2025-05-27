@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-
-           IMAGE_NAME = 'user-service'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -40,13 +35,10 @@ pipeline {
         }
 
         stage('Deploy') {
-                    steps {
-                        powershell '''
-                            docker-compose down
-                            docker-compose up -d --build
-                        '''
-                    }
-                }
+            steps {
+                powershell 'docker-compose down'
+                powershell 'docker-compose up -d --build'
+            }
         }
     }
 }
