@@ -35,13 +35,10 @@ pipeline {
         }
 
         stage('Deploy') {
-                    steps {
-                        powershell '''
-                            docker-compose down
-                            docker-compose up -d --build
-                        '''
-                    }
-                }
+            steps {
+                powershell 'docker-compose down'
+                powershell 'docker-compose up -d --build'
+            }
         }
     }
 }
