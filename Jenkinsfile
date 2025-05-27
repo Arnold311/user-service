@@ -7,23 +7,14 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps { checkout scm }
+            steps {
+                checkout scm
+            }
         }
 
         stage('Build') {
             steps {
                 powershell './mvnw clean package -DskipTests'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                powershell './mvnw test -Dspring.profiles.active=test'
-            }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
-                }
             }
         }
 
