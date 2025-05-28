@@ -6,8 +6,50 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - SPRING_APPLICATION_NAME=user-service
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/DriveAuto
+      - spring.datasource.username=postgres
+      - spring.datasource.password=arnold
+      - spring.datasource.driver-class-name=org.postgresql.Driver
       - SPRING_CLOUD_CONFIG_ENABLED=true
+      - JWT_SECRET=7k3g5sR2vYq8tBwEhTdFpXmN6zLcJ4HrK9QyVnWfAxS
+      - JWT_EXPIRATION=3600000
+      - SERVER_PORT=8080
+      - SERVER_SERVLET_CONTEXT_PATH=/api/s1
+      - SPRING_MVC_STATIC_PATH_PATTERN=/api/s1/**
+      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=classpath:/META-INF/resources/
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_FETCH_REGISTRY=true
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=true
+    depends_on:
+      - eureka-server
+      - postgres
+
+  eureka-server:
+    image: eureka-service-eureka-server:latest
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
 
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: arnold
+      POSTGRES_DB: DriveAuto
+    ports:
+      - "5444:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - "8090:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
