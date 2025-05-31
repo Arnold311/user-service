@@ -7,7 +7,7 @@ services:
       - "8091:8081"
     environment:
       - SPRING_APPLICATION_NAME=user-service
-      - spring.datasource.url=jdbc:postgresql://postgres:5432/DriveAuto
+      - spring.datasource.url=jdbc:postgresql://postgres:5444/DriveAuto
       - spring.datasource.username=postgres
       - spring.datasource.password=arnold
       - spring.datasource.driver-class-name=org.postgresql.Driver
