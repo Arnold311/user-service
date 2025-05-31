@@ -100,11 +100,7 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 93831fce5c1480da37d30b738d6712d9ccd43f94
 	</dependencies>
 
 	<build>
