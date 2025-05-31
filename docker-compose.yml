@@ -4,7 +4,7 @@ services:
   user-service:
     build: .
     ports:
-      - "8082:8081"
+      - "8081:8081"
     environment:
       - SPRING_APPLICATION_NAME=user-service
       - spring.datasource.url=jdbc:postgresql://postgres:5432/DriveAuto
@@ -14,7 +14,7 @@ services:
       - SPRING_CLOUD_CONFIG_ENABLED=true
       - JWT_SECRET=7k3g5sR2vYq8tBwEhTdFpXmN6zLcJ4HrK9QyVnWfAxS
       - JWT_EXPIRATION=3600000
-      - SERVER_PORT=8080
+      - SERVER_PORT=8081
       - SERVER_SERVLET_CONTEXT_PATH=/api/s1
       - SPRING_MVC_STATIC_PATH_PATTERN=/api/s1/**
       - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=classpath:/META-INF/resources/
