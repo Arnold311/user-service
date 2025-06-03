@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = "user-service:${env.BUILD_NUMBER}"
     }
 
-    stages {
+
         stage('Checkout') {
             steps {
                git branch: 'main',
@@ -35,5 +35,5 @@ pipeline {
                 }
             }
         }
-    }
+
 }
