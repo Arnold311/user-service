@@ -5,11 +5,10 @@ pipeline {
         DOCKER_IMAGE = "user-service:${env.BUILD_NUMBER}"
     }
 
-
+    stages {
         stage('Checkout') {
             steps {
-               git branch: 'main',
-                     url: 'https://github.com/Arnold311/user-service.git'
+                checkout scm
             }
         }
 
@@ -35,5 +34,5 @@ pipeline {
                 }
             }
         }
-
+    }
 }
